@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>test</title>
+  <style>
+    .main {
+      width: 840px;
+      margin: 20px;
+      position: relative;
+      overflow: hidden;
+      float: left;
+      border: 5px solid seagreen;
+      padding: 10px 20px;
+    }
+    
+    .area {
+      float: left;
+      width: 400px;
+      height: 800px;
+      margin: 20px 10px;
+      overflow: auto;
+    }
+    .entry{
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center
+    }
+    .entry span{ 
+      height: 40px;
+      line-height: 40px;
+      text-align: center;
+      cursor: pointer;
+    }
+    .entry strong{
+      position: absolute;
+      border-radius: 50%;
+      width: 20px;
+      margin-left: -12px;
+      margin-top: -14px;
+      height: 20px;
+      z-index: 20;
+      color: red;
+      transform: rotateZ(45deg);
+      transition: .2s;
+      cursor: pointer;
+      opacity: 0;
+    }
+    .entry strong:before{
+      content: '';
+      position: absolute;
+      width: 100%;
+      left: 0;
+      top:8px;
+      height: 4px;
+      background: currentColor;
+    }
+    .entry strong:after{
+      content: '';
+      position: absolute;
+      height : 100%;
+      left: 8px;
+      top:0;
+      width: 4px;
+      background: currentColor;
+    }
+
+    .entry strong:hover{
+      transform: rotateZ(135deg)
+    }
+    .entry span:hover{
+      background: #ccc;
+    }
+    .entrywrap{
+      height: 208px;
+      overflow: hidden;
+    }
+    .area li.index:after{
+      content: '主页';
+      font-size:12px;
+      padding: 2px 5px;
+      position:absolute;
+      right: 0;
+      top: 0;
+      background:red;
+      color:#fff;
+    }
+    .area li {
+      height: 200px;
+      border: 2px solid #ccc;
+      margin: 2px 0;
+      background: #ccc;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .area li:hover strong{
+      opacity: 1;
+    }
+    
+    .area li.hide {
+      display: none
+    }
+    .area li:before{
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+      background: rgba(255,255,255,0.3)      
+    }
+    .area li:hover {
+      border-color: seagreen;
+    }
+    .area li i{
+      position: absolute;
+      height: 30px;
+      line-height: 30px;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      font-style: normal;
+      padding: 0 10px;
+      font-size: 16px;
+      color: #fff;
+      background: rgba(0,0,0,0.5);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    
+    .area ul {
+      position: relative;
+      transition: .2s;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .area ul img {
+      width: 100%;
+      height: 100%;
+    }
+    
+    #canvas {
+      position: absolute;
+      pointer-events: none;
+      left: 0;
+      top: 0;
+      z-index: 10;
+    }
+    #setindex{
+      position: absolute
+    }
+    /*---滚动条默认显示样式--*/
+    
+    ::-webkit-scrollbar-thumb {
+      background-color: rgba(0, 0, 0, .3);
+      border-radius: 4px;
+      border: 2px solid #fff;
+      transition: .3s;
+    }
+    /*---鼠标点击滚动条显示样式--*/
+    
+    ::-webkit-scrollbar-thumb:hover {
+      background-color: rgba(0, 0, 0, .5);
+    }
+    /*---滚动条大小--*/
+    
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    /*---滚动框背景样式--*/
+    
+    ::-webkit-scrollbar-track-piece {
+      background-color: transparent;
+      border-radius: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="main" id="main">
+    <div class="area" id="entry">
+      <button id="setindex">设为主页</button>
+      <div class="entry">
+        <span onclick="slide(-1)">上一张</span>
+        <div class="entrywrap" id="leftcon">
+          <ul style="top: 0px"></ul>
+        </div>
+        <span onclick="slide(1)">下一张</span>
+      </div>
+      
+    </div>
+    <canvas id="canvas" width="480" height="760"></canvas>
+    <div class="area" id="target">
+      <ul></ul>
+    </div>
+  </div>
+  <button id="savebtn">查看数据</button>
+
+</body>
+<script src="./imgline.js"></script>
+
+</html>
